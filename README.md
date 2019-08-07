@@ -77,7 +77,7 @@ List<TargetFocus> targets = List();
             keyTarget: keyButton,
             contents: [
               ContentTarget(
-                  align: AlignContent.bottom,
+                  align: Alignment.bottomCenter,
                   child: Container(
                     child:Column(
                       mainAxisSize: MainAxisSize.min,
@@ -112,7 +112,7 @@ List<TargetFocus> targets = List();
             keyTarget: keyButton4,
             contents: [
               ContentTarget(
-                  align: AlignContent.left,
+                  align: Alignment.centerLeft,
                   child: Container(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -138,7 +138,7 @@ List<TargetFocus> targets = List();
                   )
               ),
               ContentTarget(
-                  align: AlignContent.top,
+                  align: Alignment.topCenter,
                   child: Container(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -173,7 +173,7 @@ List<TargetFocus> targets = List();
             keyTarget: keyButton5,
             contents: [
               ContentTarget(
-                  align: AlignContent.right,
+                  align: Alignment.centerRight,
                   child: Container(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

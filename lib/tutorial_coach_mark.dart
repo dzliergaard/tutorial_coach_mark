@@ -17,6 +17,7 @@ class TutorialCoachMark {
   final String textSkip;
   final Color colorShadow;
   final double opacityShadow;
+  final bool scrollTo;
 
   OverlayEntry _overlayEntry;
 
@@ -31,6 +32,7 @@ class TutorialCoachMark {
     this.alignSkip = Alignment.bottomRight,
     this.textSkip = "SKIP",
     this.opacityShadow = 0.8,
+    this.scrollTo = false,
   }) : assert(targets != null, opacityShadow >= 0 && opacityShadow <= 1);
 
   OverlayEntry _buildOverlay() {
@@ -44,6 +46,7 @@ class TutorialCoachMark {
         textSkip: textSkip,
         colorShadow: colorShadow,
         opacityShadow: opacityShadow,
+        scrollTo: scrollTo,
         finish: () {
           _hide();
           if (finish != null) finish();

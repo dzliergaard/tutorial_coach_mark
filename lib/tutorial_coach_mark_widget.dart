@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/animated_focus_light.dart';
@@ -17,22 +18,23 @@ class TutorialCoachMarkWidget extends StatefulWidget {
   final Function() clickSkip;
   final AlignmentGeometry alignSkip;
   final String textSkip;
-  const TutorialCoachMarkWidget(
-      {Key key,
-      this.targets,
-      this.finish,
-      this.paddingFocus = 10,
-      this.clickTarget,
-      this.alignSkip = Alignment.bottomRight,
-      this.textSkip = "SKIP",
-      this.clickSkip,
-      this.colorShadow = Colors.black,
-      this.opacityShadow = 0.8})
-      : super(key: key);
+  final bool scrollTo;
+  const TutorialCoachMarkWidget({
+    Key key,
+    this.targets,
+    this.finish,
+    this.paddingFocus = 10,
+    this.clickTarget,
+    this.alignSkip = Alignment.bottomRight,
+    this.textSkip = "SKIP",
+    this.clickSkip,
+    this.colorShadow = Colors.black,
+    this.opacityShadow = 0.8,
+    this.scrollTo = false,
+  }) : super(key: key);
 
   @override
-  _TutorialCoachMarkWidgetState createState() =>
-      _TutorialCoachMarkWidgetState();
+  _TutorialCoachMarkWidgetState createState() => _TutorialCoachMarkWidgetState();
 }
 
 class _TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
@@ -53,6 +55,7 @@ class _TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             paddingFocus: widget.paddingFocus,
             colorShadow: widget.colorShadow,
             opacityShadow: widget.opacityShadow,
+            scrollTo: widget.scrollTo,
             clickTarget: (target) {
               if (widget.clickTarget != null) widget.clickTarget(target);
             },
@@ -98,13 +101,11 @@ class _TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
     List<Widget> widgtes = List();
 
     TargetPosition target = getTargetCurrent(currentTarget);
-    var positioned = Offset(target.offset.dx + target.size.width / 2,
-        target.offset.dy + target.size.height / 2);
-    var sizeCircle = target.size.width > target.size.height
-        ? target.size.width
-        : target.size.height;
-    sizeCircle = sizeCircle * 0.6 + widget.paddingFocus;
-    double weight = 0.0;
+    var maxDim = max(target.size.height, target.size.width);
+    var targetCenter =
+        Offset(target.offset.dx + target.size.width / 2, target.offset.dy + target.size.height / 2);
+
+    double width = 0.0;
 
     double top;
     double bottom;
@@ -114,38 +115,49 @@ class _TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
       switch (i.align) {
         case AlignContent.bottom:
           {
-            weight = MediaQuery.of(context).size.width;
+            var sizeCircle =
+                currentTarget.shape == ShapeLightFocus.RRect ? target.size.height : maxDim;
+            sizeCircle = sizeCircle * 0.6 + widget.paddingFocus;
+            width = MediaQuery.of(context).size.width;
             left = 0;
-            top = positioned.dy + sizeCircle;
+            top = targetCenter.dy + sizeCircle;
             bottom = null;
           }
           break;
         case AlignContent.top:
           {
-            weight = MediaQuery.of(context).size.width;
+            var sizeCircle =
+                currentTarget.shape == ShapeLightFocus.RRect ? target.size.height : maxDim;
+            sizeCircle = sizeCircle * 0.6 + widget.paddingFocus;
+            width = MediaQuery.of(context).size.width;
             left = 0;
             top = null;
-            bottom = sizeCircle +
-                (MediaQuery.of(context).size.height - positioned.dy);
+            bottom = sizeCircle + (MediaQuery.of(context).size.height - targetCenter.dy);
           }
           break;
         case AlignContent.left:
           {
-            weight = positioned.dx - sizeCircle;
+            var sizeCircle =
+                currentTarget.shape == ShapeLightFocus.RRect ? target.size.width : maxDim;
+            sizeCircle = sizeCircle * 0.6 + widget.paddingFocus;
+            width = targetCenter.dx - sizeCircle;
             left = 0;
-            top = positioned.dy - target.size.height / 2 - sizeCircle;
+            top = targetCenter.dy - target.size.height / 2 - sizeCircle;
             bottom = null;
           }
           break;
         case AlignContent.right:
           {
-            left = positioned.dx + sizeCircle;
-            top = positioned.dy - target.size.height / 2 - sizeCircle;
+            var sizeCircle = target.size.height * 0.6 + widget.paddingFocus;
+            left = targetCenter.dx + sizeCircle;
+            width = MediaQuery.of(context).size.width - left;
+            top = targetCenter.dy - target.size.height / 2 - sizeCircle;
             bottom = null;
-            weight = MediaQuery.of(context).size.width - left;
           }
           break;
       }
+
+      Scrollable.ensureVisible(currentTarget.keyTarget.currentContext);
 
       return Positioned(
         top: top,
@@ -156,7 +168,7 @@ class _TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             _controllerTapChild.add(null);
           },
           child: Container(
-            width: weight,
+            width: width,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: i.child,
@@ -183,10 +195,10 @@ class _TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             duration: Duration(milliseconds: 300),
             child: InkWell(
               onTap: () {
-                widget.finish();
                 if (widget.clickSkip != null) {
                   widget.clickSkip();
                 }
+                widget.finish();
               },
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

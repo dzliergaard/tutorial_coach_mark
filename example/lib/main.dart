@@ -141,10 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Text(
                     "Titulo lorem ipsum",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20.0),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
@@ -172,10 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Text(
                     "Multiples content",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20.0),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
@@ -196,10 +192,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Text(
                     "Multiples content",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20.0),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
@@ -227,10 +221,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Text(
                     "Title lorem ipsum",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20.0),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
@@ -266,9 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text(
                       "Image Load network",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
+                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0),
                     ),
                   ),
                   Text(
@@ -296,9 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text(
                       "Multiples contents",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
+                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0),
                     ),
                   ),
                   Text(
@@ -317,10 +305,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.only(bottom: 20.0),
                   child: Text(
                     "Multiples contents",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0),
+                    style:
+                        TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),
                 ),
                 Container(
